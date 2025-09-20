@@ -1,6 +1,6 @@
 package models
 
-type Character struct {
+type CharacterBase struct {
 	Aliases                 *string        `json:"aliases"`
 	ApiDetailURL            *string        `json:"api_detail_url"`
 	Birth                   *string        `json:"birth"`

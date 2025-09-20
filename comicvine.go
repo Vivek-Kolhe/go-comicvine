@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-
-	"github.com/Vivek-Kolhe/go-comicvine/models"
 )
 
 const BaseURL = "https://comicvine.gamespot.com/api/"
@@ -34,17 +32,17 @@ func (c *Client) SetApiKey(apiKey string) {
 }
 
 // Standalone function for making get requests to API endpoints
-func doGetRequest[T any](client *Client, url string, params map[string]string) (*models.ApiResponse[T], error) {
+func (c *Client) doGetRequest(url string, params map[string]string, target any) error {
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	queries := req.URL.Query()
 	for key, val := range params {
 		queries.Add(key, val)
 	}
-	queries.Add("api_key", client.ApiKey)
+	queries.Add("api_key", c.ApiKey)
 	queries.Add("format", "json")
 
 	req.URL.RawQuery = queries.Encode()
@@ -52,19 +50,14 @@ func doGetRequest[T any](client *Client, url string, params map[string]string) (
 	httpClient := &http.Client{}
 	resp, err := httpClient.Do(req)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	var response models.ApiResponse[T]
-	if err := json.Unmarshal(body, &response); err != nil {
-		return nil, err
-	}
-
-	return &response, nil
+	return json.Unmarshal(body, target)
 }

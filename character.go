@@ -9,10 +9,11 @@ import (
 // GetCharacters (Endpoint: /characters) returns a slice of *models.Character,
 // takes in all query params as a map[string]string.
 // More info on query params: https://comicvine.gamespot.com/api/documentation#toc-0-3
-func (c *Client) GetCharacters(params map[string]string) ([]*models.Character, error) {
+func (c *Client) GetCharacters(params map[string]string) ([]*models.CharacterBase, error) {
 	url := fmt.Sprintf("%s%s", c.BaseURL, "characters")
 
-	response, err := doGetRequest[models.Character](c, url, params)
+	response := &models.ApiResponseMultipleResult[models.CharacterBase]{}
+	err := c.doGetRequest(url, params, response)
 	if err != nil {
 		return nil, err
 	}
