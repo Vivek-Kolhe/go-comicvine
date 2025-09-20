@@ -21,3 +21,4 @@ type GenericPublisher GenericEntry
 type GenericPower GenericEntry
 type GenericTeam GenericEntry
 type GenericVolume GenericEntry
+type GenericStoryArc GenericEntry

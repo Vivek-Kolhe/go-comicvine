@@ -7,6 +7,7 @@ type ApiResponseBase struct {
 	NumberOfPageResults  int    `json:"number_of_page_results"`
 	NumberOfTotalResults int    `json:"number_of_total_results"`
 	StatusCode           int    `json:"status_code"`
+	Version              string `json:"version"`
 }
 
 type ApiResponseSingleResult[T any] struct {

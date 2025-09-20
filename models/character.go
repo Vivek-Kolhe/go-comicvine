@@ -19,3 +19,19 @@ type CharacterBase struct {
 	RealName                *string           `json:"real_name"`
 	SiteDetailURL           *string           `json:"site_detail_url"`
 }
+
+type Character struct {
+	CharacterBase
+	CharacterFriends []*Friend          `json:"character_friends"`
+	CharacterEnemies []*Enemy           `json:"character_enemies"`
+	Creators         []*Creator         `json:"creators"`
+	IssueCredits     []*GenericIssue    `json:"issue_credits"`
+	IssuesDiedIn     []*GenericIssue    `json:"issues_died_in"`
+	Movies           []*Movie           `json:"movies"`
+	Powers           []*GenericPower    `json:"powers"`
+	StoryArcCredits  []*GenericStoryArc `json:"story_arc_credits"`
+	Teams            []*GenericTeam     `json:"teams"`
+	TeamEnemies      []*Enemy           `json:"team_enemies"`
+	TeamFriends      []*Friend          `json:"team_friends"`
+	VolumeCredits    []*GenericVolume   `json:"volume_credits"`
+}
