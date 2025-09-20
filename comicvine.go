@@ -6,14 +6,36 @@ import (
 	"net/http"
 )
 
+// Default ComicVine API url.
 const BaseURL = "https://comicvine.gamespot.com/api/"
 
+// Client represents a ComicVine API client.
+//
+// It holds the API key and the base URL used to make requests
+// to the ComicVine API.
 type Client struct {
-	ApiKey  string
+	// ApiKey is your personal ComicVine API key used for authentication.
+	ApiKey string
+
+	// BaseURL is the default base url for ComicVine API endpoints.
 	BaseURL string
 }
 
-// NewClient creates a new instance of ComicVine API client with the given api_key
+// NewClient creates and returns a new ComicVine API client.
+//
+// It takes an API key as param and initializes a Client struct
+// with default API url and provided API key.
+//
+// Parameters:
+// 	- apiKey: ComicVine API key (Can be grabbed from https://comicvine.gamespot.com/api/)
+//
+// Returns:
+// 	- A pointer to a Client struct, which can be used to make
+//	  make requests to the ComicVine API.
+
+// Example Usage:
+//
+//	client := NewClient("your_api_key")
 func NewClient(apiKey string) *Client {
 	return &Client{
 		ApiKey:  apiKey,
