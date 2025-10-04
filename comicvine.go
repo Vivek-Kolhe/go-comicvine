@@ -7,7 +7,7 @@ import (
 )
 
 // Default ComicVine API url.
-const BaseURL = "https://comicvine.gamespot.com/api/"
+const BaseURL = "https://comicvine.gamespot.com/api"
 
 // Client represents a ComicVine API client.
 //
