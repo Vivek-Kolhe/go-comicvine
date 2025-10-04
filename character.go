@@ -12,7 +12,7 @@ const CHARACTER_RESOURCE = 4005
 // takes in all query params as a map[string]string.
 // More info on query params: https://comicvine.gamespot.com/api/documentation#toc-0-3
 func (c *Client) GetCharacters(params map[string]string) ([]*models.CharacterBase, error) {
-	url := fmt.Sprintf("%s%s", c.BaseURL, "characters")
+	url := fmt.Sprintf("%s/%s", c.BaseURL, "characters")
 
 	response := &models.ApiResponseMultipleResult[models.CharacterBase]{}
 	err := c.doGetRequest(url, params, response)
@@ -24,7 +24,7 @@ func (c *Client) GetCharacters(params map[string]string) ([]*models.CharacterBas
 }
 
 func (c *Client) GetCharacterById(id int, params map[string]string) (*models.Character, error) {
-	url := fmt.Sprintf("%s%s/%d-%d", c.BaseURL, "character", CHARACTER_RESOURCE, id)
+	url := fmt.Sprintf("%s/%s/%d-%d", c.BaseURL, "character", CHARACTER_RESOURCE, id)
 
 	response := &models.ApiResponseSingleResult[models.Character]{}
 	err := c.doGetRequest(url, params, response)
