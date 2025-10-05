@@ -27,12 +27,12 @@ type Client struct {
 // with default API url and provided API key.
 //
 // Parameters:
-// 	- apiKey: ComicVine API key (Can be grabbed from https://comicvine.gamespot.com/api/)
+//   - apiKey (string): ComicVine API key (Can be grabbed from https://comicvine.gamespot.com/api/).
 //
 // Returns:
-// 	- A pointer to a Client struct, which can be used to make
-//	  make requests to the ComicVine API.
-
+//   - *Client: A pointer to a Client struct, which can be used to make
+//     make requests to the ComicVine API.
+//
 // Example Usage:
 //
 //	client := NewClient("your_api_key")
@@ -43,17 +43,45 @@ func NewClient(apiKey string) *Client {
 	}
 }
 
-// GetApiKey returns the api_key of the client
+// GetApiKey returns the api_key associated with the client
+//
+// Returns:
+//   - string: The API key of the client.
+//
+// Example Usage:
+//
+//	client := NewClient("your_api_key")
+//	fmt.Println(client.GetApiKey())
 func (c *Client) GetApiKey() string {
 	return c.ApiKey
 }
 
-// SetApiKey sets the api_key of the client
+// SetApiKey sets the api_key for the client
+//
+// Parameters:
+//   - apiKey (string): ComicVine API key (Can be grabbed from https://comicvine.gamespot.com/api/).
+//
+// Example Usage:
+//
+//	client := NewClient("your_api_key")
+//	client.SetApiKey("new_api_key")
 func (c *Client) SetApiKey(apiKey string) {
 	c.ApiKey = apiKey
 }
 
-// Standalone function for making get requests to API endpoints
+// doGetRequest performs an HTTP GET request to the specified ComicVine API endpoint.
+//
+// It constructs and sends a GET request using the provided URL and query parameters,
+// automatically adding required parameters such as api_key and response format.
+// The JSON response is then decoded into the specified type.
+//
+// Parameters:
+//   - url (string): Complete URL of the API endpoint.
+//   - params (map[string]string): Optional query paramters to include in the request.
+//   - target (any): A pointer to the variable where the JSON response will be unmarshalled into.
+//
+// Returns:
+//   - error: An error if something goes wrong; otherwise nil.
 func (c *Client) doGetRequest(url string, params map[string]string, target any) error {
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
