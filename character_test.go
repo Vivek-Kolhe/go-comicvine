@@ -19,16 +19,30 @@ func TestCharacterEndpoints(t *testing.T) {
 			FixtureFile: "character",
 			TestFunc: func(client *gocomicvine.Client, t *testing.T) {
 				char, err := client.GetCharacterById(1253, make(map[string]string))
-				if err != nil {
-					t.Fatalf("%s", err.Error())
-				}
 
+				require.NoError(t, err)
 				require.NotNil(t, char)
 				require.Nil(t, char.Birth)
 				require.Equal(t, 1253, *char.ID)
 				require.Equal(t, "Garth Ranzz", *char.RealName)
 				require.NotEmpty(t, char.VolumeCredits)
 				require.IsType(t, &models.GenericPower{}, char.Powers[0])
+			},
+		},
+		{
+			Name:        "GetCharacters",
+			Endpoint:    "/characters",
+			FixtureFile: "characters",
+			TestFunc: func(client *gocomicvine.Client, t *testing.T) {
+				chars, err := client.GetCharacters(make(map[string]string))
+
+				require.NoError(t, err)
+				require.NotEmpty(t, chars)
+				if len(chars) > 0 {
+					require.IsType(t, &models.CharacterBase{}, chars[0])
+					require.NotNil(t, chars[0].ID)
+					require.NotNil(t, chars[0].Name)
+				}
 			},
 		},
 	}
