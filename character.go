@@ -22,18 +22,6 @@ const CHARACTER_RESOURCE = 4005
 // Returns:
 //   - []*models.CharacterBase: A slice of pointers to models.CharacterBase struct containing details.
 //   - error: An error if something goes wrong; otherwise nil.
-//
-// Example Usage:
-//
-//	client := NewClient("your_api_key")
-//	characters, err := client.GetCharacters(make(map[string]string))
-//	if err != nil {
-//		fmt.Println(err.Error())
-//	}
-//
-//	for _, character := range characters {
-//		fmt.Println(*character.Name)
-//	}
 func (c *Client) GetCharacters(params map[string]string) ([]*models.CharacterBase, error) {
 	url := fmt.Sprintf("%s/%s", c.BaseURL, "characters")
 
@@ -62,16 +50,6 @@ func (c *Client) GetCharacters(params map[string]string) ([]*models.CharacterBas
 // Returns:
 //   - *models.Character: A pointer to the *models.Character struct containing all the details.
 //   - error: An error if something goes wrong; otherwise nil.
-//
-// Example Usage:
-//
-//	client := NewClient("your_api_key")
-//	character, err := client.GetCharacterById(1253, make(map[string]string))
-//	if err != nil {
-//		fmt.Println(err.Error())
-//	}
-//
-//	fmt.Println(*character.Name)
 func (c *Client) GetCharacterById(id int, params map[string]string) (*models.Character, error) {
 	url := fmt.Sprintf("%s/%s/%d-%d", c.BaseURL, "character", CHARACTER_RESOURCE, id)
 

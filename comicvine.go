@@ -32,10 +32,6 @@ type Client struct {
 // Returns:
 //   - *Client: A pointer to a Client struct, which can be used to make
 //     make requests to the ComicVine API.
-//
-// Example Usage:
-//
-//	client := NewClient("your_api_key")
 func NewClient(apiKey string) *Client {
 	return &Client{
 		ApiKey:  apiKey,
@@ -47,11 +43,6 @@ func NewClient(apiKey string) *Client {
 //
 // Returns:
 //   - string: The API key of the client.
-//
-// Example Usage:
-//
-//	client := NewClient("your_api_key")
-//	fmt.Println(client.GetApiKey())
 func (c *Client) GetApiKey() string {
 	return c.ApiKey
 }
@@ -60,11 +51,6 @@ func (c *Client) GetApiKey() string {
 //
 // Parameters:
 //   - apiKey (string): ComicVine API key (Can be grabbed from https://comicvine.gamespot.com/api/).
-//
-// Example Usage:
-//
-//	client := NewClient("your_api_key")
-//	client.SetApiKey("new_api_key")
 func (c *Client) SetApiKey(apiKey string) {
 	c.ApiKey = apiKey
 }
