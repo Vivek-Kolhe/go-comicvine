@@ -14,7 +14,7 @@ func TestCharacterEndpoints(t *testing.T) {
 
 	tests := []testutil.Table{
 		{
-			Name:        "GetCharacter",
+			Name:        "GetCharacterById",
 			Endpoint:    "/character/4005-1253",
 			FixtureFile: "character",
 			TestFunc: func(client *gocomicvine.Client, t *testing.T) {
@@ -35,13 +35,7 @@ func TestCharacterEndpoints(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			fixture := testutil.LoadFixture(t, tt.FixtureFile)
-			srv := testutil.NewMockServer(t, fixture, tt.Endpoint)
-			defer srv.Close()
-
-			client.BaseURL = srv.URL
-
-			tt.TestFunc(client, t)
+			tt.Test(t, client)
 		})
 	}
 }

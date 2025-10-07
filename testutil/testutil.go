@@ -17,6 +17,15 @@ type Table struct {
 	TestFunc    func(client *gocomicvine.Client, t *testing.T)
 }
 
+func (tb *Table) Test(t *testing.T, client *gocomicvine.Client) {
+	fixture := LoadFixture(t, tb.FixtureFile)
+	srv := NewMockServer(t, fixture, tb.Endpoint)
+	defer srv.Close()
+
+	client.BaseURL = srv.URL
+	tb.TestFunc(client, t)
+}
+
 func LoadFixture(t *testing.T, filename string) []byte {
 	t.Helper()
 	data, err := os.ReadFile(fmt.Sprintf("testdata/%s.json", filename))
